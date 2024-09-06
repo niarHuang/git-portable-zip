@@ -8,3 +8,4 @@ https://jaspersoft.jfrog.io/ui/native/third-party-ce-artifacts/com/lowagie/itext
 
 
 https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/2.7.2/
+0
