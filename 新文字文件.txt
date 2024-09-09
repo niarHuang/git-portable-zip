@@ -19,6 +19,8 @@ https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flu
 
 https://storage.flutter-io.cn/flutter_infra_release/releases/stable/windows/flutter_windows_3.24.2-stable.zip
 
+https://github.com/intel/haxm/releases/download/v7.8.0/haxm-windows_v7_8_0.zip
+
 /path/to/Android/sdk/tools
 /path/to/Android/sdk/emulator
 /path/to/Android/sdk/platform-tools
