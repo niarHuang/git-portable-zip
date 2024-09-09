@@ -9,3 +9,10 @@ https://jaspersoft.jfrog.io/ui/native/third-party-ce-artifacts/com/lowagie/itext
 
 https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/2.7.2/
 0
+
+
+https://dl.google.com/android/repository/commandlinetools-win-11076708_latest.zip?hl=zh-tw
+
+/path/to/Android/sdk/tools
+/path/to/Android/sdk/emulator
+/path/to/Android/sdk/platform-tools
