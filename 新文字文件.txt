@@ -15,6 +15,8 @@ https://dl.google.com/android/repository/commandlinetools-win-11076708_latest.zi
 
 https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2024.1.2.12/android-studio-2024.1.2.12-windows.zip
 
+https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.24.2-stable.zip
+
 /path/to/Android/sdk/tools
 /path/to/Android/sdk/emulator
 /path/to/Android/sdk/platform-tools
