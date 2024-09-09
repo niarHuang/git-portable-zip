@@ -13,6 +13,8 @@ https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-pare
 
 https://dl.google.com/android/repository/commandlinetools-win-11076708_latest.zip?hl=zh-tw
 
+https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2024.1.2.12/android-studio-2024.1.2.12-windows.zip
+
 /path/to/Android/sdk/tools
 /path/to/Android/sdk/emulator
 /path/to/Android/sdk/platform-tools
