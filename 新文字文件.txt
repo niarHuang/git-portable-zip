@@ -24,3 +24,144 @@ https://github.com/intel/haxm/releases/download/v7.8.0/haxm-windows_v7_8_0.zip
 /path/to/Android/sdk/tools
 /path/to/Android/sdk/emulator
 /path/to/Android/sdk/platform-tools
+
+
+
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps.openshift.io/v1","kind":"DeploymentConfig","metadata":{"annotations":{},"labels":{"app":"ctbc","softleader.com.tw/project":"mimosa"},"name":"ctbc","namespace":"uat-bankapi"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"app":"ctbc","softleader.com.tw/project":"mimosa"},"strategy":{"type":"Rolling"},"template":{"metadata":{"labels":{"app":"ctbc","softleader.com.tw/project":"mimosa"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"ctbc-config"}}],"image":"ignored:ignored","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/actuator/health/liveness","port":8080,"scheme":"HTTP"},"initialDelaySeconds":30,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1},"name":"ctbc","ports":[{"containerPort":8080,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/actuator/health/readiness","port":8080,"scheme":"HTTP"},"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1},"resources":{"limits":{"cpu":"1500m","memory":"1500M"},"requests":{"cpu":"100m","memory":"768m"}}}],"restartPolicy":"Always"}},"triggers":[{"type":"ConfigChange"},{"imageChangeParams":{"automatic":true,"containerNames":["ctbc"],"from":{"kind":"ImageStreamTag","name":"bank-api-ctbc:stable","namespace":"uat-bankapi"}},"type":"ImageChange"}]}}
+  selfLink: /apis/apps.openshift.io/v1/namespaces/uat-bankapi/deploymentconfigs/ctbc
+  resourceVersion: '1903969685'
+  name: ctbc
+  uid: 64ea561c-801a-4efe-ae07-a7dd11dcd5dd
+  creationTimestamp: '2023-10-23T07:12:24Z'
+  generation: 267
+  namespace: uat-bankapi
+  labels:
+    app: ctbc
+    softleader.com.tw/project: mimosa
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - ctbc
+        from:
+          kind: ImageStreamTag
+          namespace: uat-bankapi
+          name: 'bank-api-ctbc:stable'
+        lastTriggeredImage: >-
+          registry.ocp.prulife.intra:5000/tsl-bankapi/bank-api-ctbc@sha256:0af6d29f43c8697aa6f3d9be7b236b6a6161842255520390d4f13c655272c8d9
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: ctbc
+    softleader.com.tw/project: mimosa
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ctbc
+        softleader.com.tw/project: mimosa
+    spec:
+      volumes:
+        - name: pvc-nfs-uat-tnbs-img
+          persistentVolumeClaim:
+            claimName: pvc-nfs-uat-tnbs-img
+        - name: pvc-nfs-uat-bankapi-ctbc
+          persistentVolumeClaim:
+            claimName: pvc-nfs-uat-bankapi-ctbc
+      containers:
+        - resources:
+            limits:
+              cpu: 1500m
+              memory: 2400M
+            requests:
+              cpu: 100m
+              memory: 1500M
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: ctbc
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: pvc-nfs-uat-tnbs-img
+              mountPath: /tmp/img
+            - name: pvc-nfs-uat-bankapi-ctbc
+              mountPath: /tmp/zipfile
+          terminationMessagePolicy: File
+          envFrom:
+            - configMapRef:
+                name: ctbc-config
+          image: >-
+            registry.ocp.prulife.intra:5000/tsl-bankapi/bank-api-ctbc@sha256:0af6d29f43c8697aa6f3d9be7b236b6a6161842255520390d4f13c655272c8d9
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+status:
+  observedGeneration: 267
+  details:
+    message: image change
+    causes:
+      - type: ImageChange
+        imageTrigger:
+          from:
+            kind: DockerImage
+            name: >-
+              registry.ocp.prulife.intra:5000/tsl-bankapi/bank-api-ctbc@sha256:0af6d29f43c8697aa6f3d9be7b236b6a6161842255520390d4f13c655272c8d9
+  availableReplicas: 1
+  unavailableReplicas: 0
+  latestVersion: 88
+  updatedReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2024-08-28T01:47:24Z'
+      lastTransitionTime: '2024-08-28T01:47:21Z'
+      reason: NewReplicationControllerAvailable
+      message: replication controller "ctbc-88" successfully rolled out
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2024-09-10T07:25:24Z'
+      lastTransitionTime: '2024-09-10T07:25:24Z'
+      message: Deployment config has minimum availability.
+  replicas: 1
+  readyReplicas: 1
