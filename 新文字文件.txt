@@ -165,3 +165,16 @@ status:
       message: Deployment config has minimum availability.
   replicas: 1
   readyReplicas: 1
+
+
+
+Unable to connect to Chrome debug port: 53734
+ Unexpected character
+400 Request on loopback from external IP; body:
+<HEAD><TITLE>Request on loopback from external IP</TITLE></HEAD>
+<BODY BGCOLOR="white" FGCOLOR="black"><H1>Request on loopback from external IP</H1><HR>
+<FONT FACE="Helvetica,Arial"><B>
+Description: Your request is prohibited because the request is on loopback from external IP.</B></FONT>
+<HR>
+<!-- default "Request on loopback from external IP" response (400) -->
+</BODY>
